@@ -1,3 +1,4 @@
+<img width="450" height="450" alt="image" src="https://github.com/user-attachments/assets/fd04fa8f-2838-40a7-9d7d-ed3618d19525" />
 Test Sécurité Atelier - Lycée Professionnel Privé Jacques Raynaud
 Test de sécurité numérique pour les élèves des filières froid et climatisation.
 📋 Description
