@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Test Sécurité Atelier - Lycée Jacques Raynaud</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .student-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        .student-info input, .student-info select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .question {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .question h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 16px;
+        }
+        .options {
+            margin-left: 20px;
+        }
+        .options label {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .options label:hover {
+            background-color: #e3f2fd;
+        }
+        .options input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .section-title {
+            background: #0066cc;
+            color: white;
+            padding: 10px 15px;
+            margin: 30px 0 20px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .submit-btn {
+            background: #0066cc;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 30px;
+        }
+        .submit-btn:hover {
+            background: #0052a3;
+        }
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .results {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 2px solid #4caf50;
+        }
+        .results.failed {
+            background: #ffeaea;
+            border-color: #f44336;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                margin: 10px;
+            }
+            body {
+                padding: 10px;
+            }
+        }
+    
+input[type="checkbox"] {
+  transform: scale(1.3);
+  margin-right: 10px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Test Sécurité - Permis de travail</h1>
+<p><strong>Séquence 1 sécurité et découverte du métier - Séance 3</strong></p>
+<p>Compétences : CC1 CC2 CC3</p>
+<small>f. Henninot 24</small>
+<button onclick="setEndpoint()" style="float:right;margin-top:-10px;padding:6px 10px;border:1px solid #bbb;border-radius:6px;background:#fff;cursor:pointer" type="button">⚙️ Paramètres prof</button></div>
+<div id="student-form">
+<div class="student-info">
+<input id="student-name" placeholder="Nom : ........................" required="" type="text"/>
+<input id="student-firstname" placeholder="Prénom : ........................" type="text"/>
+<select id="student-class" required="" style="width:100%;padding:10px;margin:8px 0;border:1px solid #ddd;border-radius:5px;font-size:16px;">
+<option value="">-- Choisissez votre classe --</option>
+<option value="1cap">1CAP IFCA</option>
+<option value="2cap">2CAP IFCA</option>
+<option value="2tne">2nde TNE</option>
+<option value="1mfer">1ère MFER</option>
+<option value="tmfer">Terminale MFER</option>
+<option value="cvc">TP CVC</option>
+<option value="autre">Autre</option>
+</select>
+<input id="test-date" type="date"/>
+</div>
+<div style="background: #fff3cd; padding: 15px; border-radius: 8px; border: 1px solid #ffeaa7; margin-bottom: 25px;">
+<h4 style="margin: 0 0 10px 0; color: #856404;">Consignes :</h4>
+<ul style="margin: 0; padding-left: 20px; color: #856404; font-size: 14px;">
+<li>Le travail est individuel.</li>
+<li>Vous avez le droit de consulter les cours et les documents qui vous ont été donnés lors des dernières séances.</li>
+<li>Répondez à toutes les questions en respectant les consignes données.</li>
+<li>Si vous n'obtenez pas au moins la moyenne, vous ne serez pas autorisés à travailler en atelier jusqu'à la validation du test.</li>
+</ul>
+</div>
+</div>
+<form id="quiz-form">
+<div class="section-title">Partie 1 : Vie scolaire</div>
+<div class="question">
+<h3>1. Que dois-je faire si j'arrive en retard au lycée ?</h3>
+<div class="options">
+<label><input name="q1" type="checkbox" value="a"/> Valider mon retard à la vie scolaire</label>
+<label><input name="q1" type="checkbox" value="b"/> Ne rien faire et m'installer discrètement dans la salle</label>
+</div>
+</div>
+<div class="question">
+<h3>2. Que dois-je faire si je suis absent au lycée ?</h3>
+<div class="options">
+<label><input name="q2" type="checkbox" value="a"/> Prévenir la vie scolaire</label>
+<label><input name="q2" type="checkbox" value="b"/> Ne rien dire</label>
+<label><input name="q2" type="checkbox" value="c"/> Attendre que l'enseignant appelle mes parents</label>
+</div>
+</div>
+<div class="question">
+<h3>3. Puis-je passer en première sans avoir effectué mes périodes de stage (PFMP) ?</h3>
+<div class="options">
+<label><input name="q3" type="checkbox" value="a"/> Oui</label>
+<label><input name="q3" type="checkbox" value="b"/> Non</label>
+<label><input name="q3" type="checkbox" value="c"/> Avec la présentation d'un certificat médical délivré par le médecin généraliste</label>
+</div>
+</div>
+<div class="question">
+<h3>4. Quels comportements sont interdits dans l'établissement ?</h3>
+<div class="options">
+<label><input name="q4" type="checkbox" value="a"/> Fumer ou vapoter</label>
+<label><input name="q4" type="checkbox" value="b"/> Manger en classe</label>
+<label><input name="q4" type="checkbox" value="c"/> Consommer des produits stupéfiants</label>
+<label><input name="q4" type="checkbox" value="d"/> Utiliser un téléphone sans autorisation</label>
+</div>
+</div>
+<div class="question">
+<h3>5. Dois-je respecter le balisage de circulation dans l'atelier ?</h3>
+<div class="options">
+<label><input name="q5" type="checkbox" value="a"/> Oui</label>
+<label><input name="q5" type="checkbox" value="b"/> Non</label>
+<label><input name="q5" type="checkbox" value="c"/> Seulement si je manipule des outils</label>
+</div>
+</div>
+<div class="question">
+<h3>6. Que signifie l'acronyme du nom de votre classe ?</h3>
+<div class="options">
+<label><input name="q6" type="checkbox" value="a"/> TNE : Transition Numérique Énergétique</label>
+<label><input name="q6" type="checkbox" value="b"/> TNE : Techniques Naturelles d'Électrification</label>
+<label><input name="q6" type="checkbox" value="c"/> MFER : Métiers du Froid et des Énergies Renouvelables</label>
+<label><input name="q6" type="checkbox" value="d"/> IFCA : Installateur en Froid et Conditionnement d'Air</label>
+</div>
+</div>
+<div class="section-title">Partie 2 : Sécurité et matériel en atelier</div>
+<div class="question">
+<h3>7. Ai-je le droit de travailler à proximité d'équipements sous tension sans EPI adaptés ?</h3>
+<div class="options">
+<label><input name="q7" type="checkbox" value="a"/> Oui</label>
+<label><input name="q7" type="checkbox" value="b"/> Non</label>
+<label><input name="q7" type="checkbox" value="c"/> Seulement si je ne manipule pas les équipements</label>
+</div>
+</div>
+<div class="question">
+<h3>8. Que dois-je faire si je renverse un liquide près d'un équipement électrique ?</h3>
+<div class="options">
+<label><input name="q8" type="checkbox" value="a"/> Continuer à travailler en évitant la zone</label>
+<label><input name="q8" type="checkbox" value="b"/> Avertir immédiatement un responsable et nettoyer</label>
+<label><input name="q8" type="checkbox" value="c"/> Couper l'alimentation immédiatement</label>
+</div>
+</div>
+<div class="question">
+<h3>9. Quels EPI sont obligatoires pour travailler en atelier ?</h3>
+<div class="options">
+<label><input name="q9" type="checkbox" value="a"/> Bleu de travail</label>
+<label><input name="q9" type="checkbox" value="b"/> Chaussures de sécurité</label>
+<label><input name="q9" type="checkbox" value="c"/> Lunettes de protection</label>
+<label><input name="q9" type="checkbox" value="d"/> Gants anti-coupure</label>
+<label><input name="q9" type="checkbox" value="e"/> Casque de chantier</label>
+</div>
+</div>
+<div class="question">
+<h3>10. Que dois-je faire avant de manipuler une installation électrique ?</h3>
+<div class="options">
+<label><input name="q10" type="checkbox" value="a"/> Couper l'alimentation</label>
+<label><input name="q10" type="checkbox" value="b"/> Vérifier l'absence de tension</label>
+<label><input name="q10" type="checkbox" value="c"/> Je n'ai pas le droit, je ne suis pas habilité</label>
+</div>
+</div>
+<div class="question">
+<h3>11. Quels sont les risques liés aux travaux en hauteur ?</h3>
+<div class="options">
+<label><input name="q11" type="checkbox" value="a"/> Chute</label>
+<label><input name="q11" type="checkbox" value="b"/> Électrocution</label>
+<label><input name="q11" type="checkbox" value="c"/> Coupures</label>
+<label><input name="q11" type="checkbox" value="d"/> Perte d'équilibre</label>
+</div>
+</div>
+<div class="question">
+<h3>12. Est-il permis de travailler en hauteur sans autorisation ?</h3>
+<div class="options">
+<label><input name="q12" type="checkbox" value="a"/> Oui</label>
+<label><input name="q12" type="checkbox" value="b"/> Non</label>
+</div>
+</div>
+<div class="question">
+<h3>13. Quels numéros appeler en cas d'accident grave ?</h3>
+<div class="options">
+<label><input name="q13" type="checkbox" value="a"/> 15</label>
+<label><input name="q13" type="checkbox" value="b"/> 18</label>
+<label><input name="q13" type="checkbox" value="c"/> 112</label>
+</div>
+</div>
+<div class="question">
+<h3>14. Que faire si un outil est endommagé ?</h3>
+<div class="options">
+<label><input name="q14" type="checkbox" value="a"/> Le signaler à l'enseignant</label>
+<label><input name="q14" type="checkbox" value="b"/> Le réparer soi-même</label>
+<label><input name="q14" type="checkbox" value="c"/> Attendre un technicien</label>
+</div>
+</div>
+<div class="question">
+<h3>15. Que signifie "P-A-S" en cas d'accident ?</h3>
+<div class="options">
+<label><input name="q15" type="checkbox" value="a"/> Protéger, Alerter, Secourir</label>
+<label><input name="q15" type="checkbox" value="b"/> Prévenir, Alerter, Surveiller</label>
+<label><input name="q15" type="checkbox" value="c"/> Protéger, Alerter, Sécuriser</label>
+</div>
+</div>
+<div class="question">
+<h3>16. Que faire si un camarade subit un choc électrique ?</h3>
+<div class="options">
+<label><input name="q16" type="checkbox" value="a"/> Protéger la zone</label>
+<label><input name="q16" type="checkbox" value="b"/> Alerter l'enseignant</label>
+<label><input name="q16" type="checkbox" value="c"/> Secourir si possible</label>
+</div>
+</div>
+<div class="question">
+<h3>17. Ai-je le droit de refuser une tâche dangereuse pendant ma PFMP ?</h3>
+<div class="options">
+<label><input name="q17" type="checkbox" value="a"/> Oui, je peux exercer mon droit de retrait</label>
+<label><input name="q17" type="checkbox" value="b"/> Non, je dois suivre les instructions du tuteur</label>
+<label><input name="q17" type="checkbox" value="c"/> Seulement si je suis en danger immédiat</label>
+</div>
+</div>
+<div class="question">
+<h3>18. Que dois-je faire pour travailler en toute sécurité en hauteur ?</h3>
+<div class="options">
+<label><input name="q18" type="checkbox" value="a"/> Utiliser un harnais et une ligne de vie</label>
+<label><input name="q18" type="checkbox" value="b"/> Monter rapidement pour finir plus vite</label>
+<label><input name="q18" type="checkbox" value="c"/> Vérifier la stabilité de l'échelle</label>
+</div>
+</div>
+<div class="question">
+<h3>19. Quels sont les équipements supplémentaires EPI &amp;EPC pour utiliser un chalumeau ?</h3>
+<div class="options">
+<label><input name="q19" type="checkbox" value="a"/> Lunettes spéciales</label>
+<label><input name="q19" type="checkbox" value="b"/> Gants en cuir</label>
+<label><input name="q19" type="checkbox" value="c"/> Tablier en coton épais ou cuir</label>
+<label><input name="q19" type="checkbox" value="d"/> Ventilation</label>
+</div>
+</div>
+<div class="question">
+<h3>20. Que faire en cas d'accident électrique en atelier ?</h3>
+<div class="options">
+<label><input name="q20" type="checkbox" value="a"/> Couper immédiatement l'alimentation</label>
+<label><input name="q20" type="checkbox" value="b"/> Alerter l'enseignant</label>
+<label><input name="q20" type="checkbox" value="c"/> Secourir si possible</label>
+<label><input name="q20" type="checkbox" value="d"/> Protéger la zone</label>
+</div>
+</div>
+<div class="question">
+<h3>21. Que représente le pictogramme suivant ? (bouton d'arrêt d'urgence rouge)</h3>
+<div class="options">
+<label><input name="q21" type="checkbox" value="a"/> Bouton d'arrêt d'urgence « ARU»</label>
+<label><input name="q21" type="checkbox" value="b"/> C'est un bouton d'alarme incendie</label>
+<label><input name="q21" type="checkbox" value="c"/> Ne jamais appuyer dessus</label>
+</div>
+</div>
+<div class="question">
+<h3>22. Ai-je le droit d'appuyer sur l'arrêt d'urgence (ARU) pour m'amuser ?</h3>
+<div class="options">
+<label><input name="q22" type="checkbox" value="a"/> Oui, si personne ne me voit</label>
+<label><input name="q22" type="checkbox" value="b"/> Non, sauf en cas de danger</label>
+<label><input name="q22" type="checkbox" value="c"/> Seulement si l'enseignant me l'autorise</label>
+</div>
+</div>
+<div class="question">
+<h3>23. Quels types d'outils et machines sont utilisés dans l'atelier ?</h3>
+<div class="options">
+<label><input name="q23" type="checkbox" value="a"/> Matériel électrique</label>
+<label><input name="q23" type="checkbox" value="b"/> Matériel coupant et écrasant</label>
+<label><input name="q23" type="checkbox" value="c"/> Chalumeaux oxyacétyléniques</label>
+</div>
+</div>
+<div class="question">
+<h3>24. Quels sont les principaux risques liés au métier de frigoriste ?</h3>
+<div style="margin-top: 10px;">
+<textarea name="q24" placeholder="Écrivez votre réponse ici..." style="width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: Arial, sans-serif;"></textarea>
+</div>
+</div>
+<div class="question">
+<h3>25. Quels sont les risques encourus en utilisant des machines sous tension ?</h3>
+<div class="options">
+<label><input name="q25" type="checkbox" value="a"/> Électrisation</label>
+<label><input name="q25" type="checkbox" value="b"/> Électrocution</label>
+<label><input name="q25" type="checkbox" value="c"/> D'être mis au courant</label>
+</div>
+</div>
+<div class="question">
+<h3>26. Que signifie l'acronyme "EPI" ?</h3>
+<div class="options">
+<label><input name="q26" type="checkbox" value="a"/> Équipement de Protection Individuelle</label>
+<label><input name="q26" type="checkbox" value="b"/> Équipement de Protection Industrielle</label>
+</div>
+</div>
+<div class="question">
+<h3>27. Quelles sont les consignes à respecter pour travailler en toute sécurité dans l'atelier ?</h3>
+<div class="options">
+<label><input name="q27" type="checkbox" value="a"/> Porter les EPI</label>
+<label><input name="q27" type="checkbox" value="b"/> Signaler les outils défectueux</label>
+<label><input name="q27" type="checkbox" value="c"/> Respecter les consignes de sécurité</label>
+</div>
+</div>
+<div class="question">
+<h3>28. Que signifie "EPC" ?</h3>
+<div class="options">
+<label><input name="q28" type="checkbox" value="a"/> Équipement de Protection Collective</label>
+<label><input name="q28" type="checkbox" value="b"/> Équipement Personnel de Coopérative</label>
+</div>
+</div>
+<div class="question">
+<h3>29. Pourquoi est-il important de porter des EPI ?</h3>
+<div class="options">
+<label><input name="q29" type="checkbox" value="a"/> Pour me protéger</label>
+<label><input name="q29" type="checkbox" value="b"/> Pour éviter les accidents</label>
+<label><input name="q29" type="checkbox" value="c"/> Pour suivre les consignes</label>
+</div>
+</div>
+<div class="question">
+<h3>30. Que dois-je faire avant d'utiliser des outils électroportatifs ?</h3>
+<div class="options">
+<label><input name="q30" type="checkbox" value="a"/> Demander l'autorisation de l'enseignant</label>
+<label><input name="q30" type="checkbox" value="b"/> Vérifier l'outil avant utilisation</label>
+<label><input name="q30" type="checkbox" value="c"/> M'assurer que l'outil fonctionne correctement</label>
+</div>
+</div>
+<button class="submit-btn" type="submit">Terminer le test</button>
+</form>
+<div id="results" style="display: none;">
+<div class="results">
+<h2>Résultats du test</h2>
+<div id="score-display"></div>
+<div id="competence-scores"></div>
+<button onclick="copyResults()" style="margin-top: 15px; padding: 10px 20px; background: #0066cc; color: white; border: none; border-radius: 5px; cursor: pointer;">Copier les résultats</button>
+<button onclick="sendResults()" style="margin-top:10px;padding:12px 20px;background:#2e7d32;color:#fff;border:none;border-radius:6px;cursor:pointer;" type="button">📨 Envoyer au professeur</button><p id="send-status" style="margin-top:8px;color:#555;"></p></div>
+</div>
+</div>
+<script>
+        // Réponses correctes selon votre barème
+        const correctAnswers = {
+            // CC1 - S'informer (Q1, Q2, Q3, Q4, Q5, Q6, Q9, Q26, Q28)
+            q1: ['a'],
+            q2: ['a'],
+            q3: ['b'],
+            q4: ['a', 'b', 'c', 'd'],
+            q5: ['a'],
+            q6: ['a', 'c'],
+            q9: ['a', 'b', 'c', 'd'],
+            q26: ['a'],
+            q28: ['a'],
+            
+            // CC2 - Organiser (Q7, Q8, Q10, Q14)
+            q7: ['b'],
+            q8: ['b', 'c'],
+            q10: ['c'],
+            q14: ['a'],
+            
+            // CC3 - Analyser (Q11, Q12, Q13, Q15, Q16, Q17, Q18, Q19, Q20, Q21, Q22, Q23, Q25, Q27, Q29, Q30)
+            q11: ['a', 'd'],
+            q12: ['b'],
+            q13: ['a', 'b', 'c'],
+            q15: ['a'],
+            q16: ['a', 'b', 'c'],
+            q17: ['a'],
+            q18: ['a', 'c'],
+            q19: ['a', 'b', 'c', 'd'],
+            q20: ['a', 'b', 'c', 'd'],
+            q21: ['a'],
+            q22: ['b'],
+            q23: ['a', 'b', 'c'],
+            q25: ['a', 'b'],
+            q27: ['a', 'b', 'c'],
+            q29: ['a', 'b', 'c'],
+            q30: ['a', 'b', 'c']
+        };
+
+        const competenceMapping = {
+            CC1: ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q9', 'q26', 'q28'],
+            CC2: ['q7', 'q8', 'q10', 'q14'],
+            CC3: ['q11', 'q12', 'q13', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20', 'q21', 'q22', 'q23', 'q25', 'q27', 'q29', 'q30']
+        };
+
+        document.getElementById('quiz-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('student-name').value;
+            const studentClass = document.getElementById('student-class').value;
+            const firstname = document.getElementById('student-firstname').value;
+            const testDate = document.getElementById('test-date').value;
+            
+            if (!name.trim()) {
+                alert('Veuillez saisir votre nom');
+                return;
+            }
+            if (!studentClass) {
+                alert('Veuillez choisir votre classe');
+                return;
+            }
+            if (!name.trim()) {
+                alert('Veuillez saisir votre nom');
+                return;
+            }
+
+            let score = 0;
+            let competenceScores = { CC1: 0, CC2: 0, CC3: 0 };
+            let totalByCompetence = { CC1: 9, CC2: 4, CC3: 16 };
+            
+            // Évaluation automatique
+            for (let questionId in correctAnswers) {
+                const selectedAnswers = Array.from(document.querySelectorAll(`input[name="${questionId}"]:checked`))
+                    .map(input => input.value);
+                
+                const correct = correctAnswers[questionId];
+                
+                if (arraysEqual(selectedAnswers.sort(), correct.sort())) {
+                    score++;
+                    
+                    // Attribution des points par compétence
+                    for (let competence in competenceMapping) {
+                        if (competenceMapping[competence].includes(questionId)) {
+                            competenceScores[competence]++;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            // Question 24 (évaluation manuelle)
+            const q24Answer = document.querySelector('textarea[name="q24"]').value;
+            
+            const totalQuestions = Object.keys(correctAnswers).length;
+            const percentage = Math.round((score / totalQuestions) * 100);
+            const level = getLevel(percentage);
+            
+            // Calcul des niveaux par compétence
+            const cc1Level = getCompetenceLevel(competenceScores.CC1, totalByCompetence.CC1);
+            const cc2Level = getCompetenceLevel(competenceScores.CC2, totalByCompetence.CC2);
+            const cc3Level = getCompetenceLevel(competenceScores.CC3, totalByCompetence.CC3);
+            
+            // Affichage des résultats
+            const resultsDiv = document.getElementById('results');
+            const scoreDisplay = document.getElementById('score-display');
+            const competenceScoresDiv = document.getElementById('competence-scores');
+            
+            scoreDisplay.innerHTML = `
+                <h3>${name} ${firstname}</h3>
+                <p>Date : ${testDate}</p>
+                <p><strong>Score automatique : ${score}/${totalQuestions} (${percentage}%)</strong></p>
+                <p><strong>Niveau global : ${level}</strong></p>
+            `;
+            
+            competenceScoresDiv.innerHTML = `
+                <h4>Résultats par compétence :</h4>
+                <p>CC1 - S'informer : ${competenceScores.CC1}/${totalByCompetence.CC1} (${cc1Level})</p>
+                <p>CC2 - Organiser : ${competenceScores.CC2}/${totalByCompetence.CC2} (${cc2Level})</p>
+                <p>CC3 - Analyser : ${competenceScores.CC3}/${totalByCompetence.CC3} (${cc3Level})</p>
+                <h4>Question 24 - Risques métier frigoriste :</h4>
+                <p style="background: #f5f5f5; padding: 10px; border-radius: 5px; font-style: italic;">${q24Answer || 'Pas de réponse'}</p>
+                <p style="color: #666; font-size: 12px;">Note finale sur 60 points à calculer par l'enseignant selon barème PA/A/EA/NA</p>
+            `;
+            
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            // Stocker les résultats
+            window.currentResults = { class: studentClass,
+                name: `${name} ${firstname}`,
+                date: testDate,
+                score: `${score}/${totalQuestions}`,
+                percentage: percentage,
+                level: level,
+                cc1: `${competenceScores.CC1}/${totalByCompetence.CC1}`,
+                cc1_level: cc1Level,
+                cc2: `${competenceScores.CC2}/${totalByCompetence.CC2}`,
+                cc2_level: cc2Level,
+                cc3: `${competenceScores.CC3}/${totalByCompetence.CC3}`,
+                cc3_level: cc3Level,
+                q24: q24Answer,
+                timestamp: new Date().toLocaleString('fr-FR')
+            };
+        });
+        
+        function arraysEqual(a, b) {
+            return a.length === b.length && a.every((val, index) => val === b[index]);
+        }
+        
+        function getLevel(percentage) {
+            if (percentage >= 90) return 'PA - Parfaitement Acquis';
+            if (percentage >= 70) return 'A - Acquis';
+            if (percentage >= 50) return 'EA - En cours d\'Acquisition';
+            return 'NA - Non Acquis';
+        }
+        
+        function getCompetenceLevel(score, total) {
+            const percentage = (score / total) * 100;
+            if (percentage >= 90) return 'PA';
+            if (percentage >= 70) return 'A';
+            if (percentage >= 50) return 'EA';
+            return 'NA';
+        }
+        
+        function copyResults() {
+            const results = window.currentResults;
+            const text = `TEST SÉCURITÉ ATELIER - ${results.timestamp}
+            
+Élève: ${results.name}
+Date: ${results.date}
+Score automatique: ${results.score} (${results.percentage}%)
+Niveau: ${results.level}
+
+COMPÉTENCES:
+CC1 S'informer: ${results.cc1} - ${results.cc1_level}
+CC2 Organiser: ${results.cc2} - ${results.cc2_level}
+CC3 Analyser: ${results.cc3} - ${results.cc3_level}
+
+QUESTION 24 - Risques métier frigoriste:
+${results.q24}
+
+---
+Barème : PA (+1 pt), A (+0.5 pt), EA (0 pt), NA (-0.20 pt)
+Total sur 60 points à calculer par l'enseignant`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Résultats copiés dans le presse-papiers !');
+            }).catch(() => {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Résultats copiés !');
+            });
+        }
+    
+
+// === URL de votre WebApp Apps Script (collez l'URL /exec ici) ===
+const APPS_SCRIPT_WEBAPP = ""; // ex: "https://script.google.com/macros/s/XXXX/exec"
+
+async function sendResults() {
+  try {
+    if (!window.currentResults) {
+      alert("Veuillez d'abord terminer le test pour générer les résultats.");
+      return;
+    }
+    const statusEl = document.getElementById('send-status');
+    statusEl.style.color = '#555';
+    statusEl.textContent = "Envoi en cours...";
+
+    const endpoint = getEndpoint();
+    if (!endpoint) {
+      statusEl.style.color = '#b71c1c';
+      statusEl.textContent = "❌ URL Apps Script non configurée. Renseignez APPS_SCRIPT_WEBAPP dans le code.";
+      return;
+    }
+
+    const payload = { ...window.currentResults };
+    const r = await fetch(endpoint, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    if (r.ok) {
+      statusEl.style.color = '#2e7d32';
+      statusEl.textContent = "✅ Réponses envoyées au professeur.";
+    } else {
+      statusEl.style.color = '#b71c1c';
+      statusEl.textContent = "❌ Erreur d'envoi (" + r.status + ").";
+    }
+  } catch (e) {
+    const statusEl = document.getElementById('send-status');
+    statusEl.style.color = '#b71c1c';
+    statusEl.textContent = "❌ Erreur : " + e;
+  }
+}
+
+
+// Permet au professeur de coller l'URL /exec sans éditer le code
+function getEndpoint() {
+  const stored = localStorage.getItem('apps_script_url') || '';
+  return (APPS_SCRIPT_WEBAPP && APPS_SCRIPT_WEBAPP.trim()) ? APPS_SCRIPT_WEBAPP.trim() : stored;
+}
+function setEndpoint() {
+  const current = localStorage.getItem('apps_script_url') || '';
+  const value = prompt("Collez l’URL /exec de votre Apps Script :", current);
+  if (value !== null) {
+    localStorage.setItem('apps_script_url', value.trim());
+    alert("URL enregistrée.");
+  }
+}
+</script>
+</body>
+</html>
